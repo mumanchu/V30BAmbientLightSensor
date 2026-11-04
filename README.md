@@ -8,7 +8,7 @@ This is a nice module with an automatically adjusted range of 0..200'000 LUX. Th
 
 It also automatically filters out infrared light, which often causes problems with LUX measurements because the human eye is not sensitive to infrared.
 
-The sensor seems to be very accurate when compared to my LUX Meter. It measures very low LUX levels, down to 0.001 LUX, and has a response time of 5..10 seconds. The readings are very stable, with good smoothing.
+The sensor seems to be very accurate when compared to my LUX Meter. It measures very low LUX levels, down to 0.05 LUX, and has a response time of 5..10 seconds. The readings are very stable, with good smoothing.
 
 The module has an HC32L110 microcontroller (a low power 32-bit 32MHz Cortex-M0+), which is designed for battery powered devices. 
 
@@ -126,11 +126,12 @@ https://optoelectronics.liteon.com/upload/download/DS86-2013-0004/LTR-303ALS-01_
 |:---------- |:---------|:----------- |
 | 2026.11.04 | 1.0.0    | Release v1.0.0 |
 
+<br/>
+
 
 ## Joke of the Week
 
-What's the difference between an elk and a moose?
-
+What's the difference between an elk and a moose? \
 _You can't eat an elk with a spoon._
 
 
