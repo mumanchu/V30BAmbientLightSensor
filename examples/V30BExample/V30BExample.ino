@@ -63,13 +63,6 @@ void setup()
 	}
 	#endif
 
-	uint xxx = 0;
-	long lux;
-	while (!als.readLux(&lux)) {
-		Serial.println(++xxx);
-		Serial.flush();
-	}
-
 	// Set to 1 to enable the EEPROM tests
 	#if 0
 
@@ -121,6 +114,9 @@ void setup()
 		Serial.flush();
 		while (1) yield();
 	}
+
+	Serial.println("EEPROM test passed\n\r");
+	Serial.flush();
 	#endif
 }
 
