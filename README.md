@@ -27,6 +27,18 @@ The EN pin can also be used as a 'chip select' pin if you have multiple V30Bs co
 This _mumanchu_ library does not handle the EN pin itself. It can be connected to VCC so it's always enabled, or connected to a digital output so it can be powered off and on, or used as chip select.
 
 
+## EEPROM, Electrically Erasable Programmable Read Only Memory
+
+The module contains 112 bytes of nonvolatile EEPROM memory, which seems to be available to the user's application. The data sheet does not say much about this, only "EEPROM data storage".
+
+This nonvolatile memory could be very useful for things like Serial Numbers and IP Addresses, etc.
+
+The _mumanchu_ library contains `writeEEPROM()` and `readEEPROM()` methods.
+
+> [!IMPORTANT]
+> EEPROMs have a limited number of write cycles, typically 100'000 to 1'000'000, so don't write code that sits in a loop writing to EEPROM!
+
+
 ## I2C 
 
 The DFRobot data sheet says the module runs on I2C at up to 400KHz. I was unable to make it work reliably on Hardware I2C. At 100KHz it worked occasionally, but not well enough to be usable. The example sketch uses Software I2C, but can use Hardware I2C if you enable it, so you can try it yourself. Let me know if you get it working! Maybe I just have a bad module.
@@ -76,7 +88,7 @@ public:
 
 The example sketch displays the LUX value in `ulong` and `float` units on the Serial Monitor.
 
-By default, the example sketch uses Software I2C. However, if you want to try using Hardware I2C, you can uncomment `#define V30B_USE_HARDWARE_I2C`. But I was unable to get this working - if you manage it, please let me know what you did.
+By default, the example sketch uses Software I2C. However, if you want to try using Hardware I2C, uncomment `#define V30B_USE_HARDWARE_I2C`. But I was unable to get this working - if you manage it, please let me know what you did.
 
 It also contains code to test the 112 EEPROM registers, but this is patched out by default. To enable it, change `#if 0` to `#if 1`,
 
@@ -86,9 +98,6 @@ It also contains code to test the 112 EEPROM registers, but this is patched out 
     ...
     #endif
 ```
-
-> [!NOTE]
-> EEPROMs have a 'limited' number of write cycles, typically 100'000 to 1'000'000, so don't write code that sits in a loop writing to EEPROM.
 
 
 ## References
@@ -117,7 +126,6 @@ https://optoelectronics.liteon.com/upload/download/DS86-2013-0004/LTR-303ALS-01_
 
 What's the difference between an elk and a moose?
 
-You can't eat an elk with a spoon.
-
+_You can't eat an elk with a spoon._
 
 
