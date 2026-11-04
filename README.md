@@ -2,11 +2,11 @@
 
 **SKU: SEN0390**
 
-<img width="300" alt="image" src="images/v30b.jpg" />
+<img width="500" alt="image" src="images/v30b.jpg" />
 
 This is a nice module with an automatically adjusted range of 0..200'000 LUX. This means you don't need to write fancy 'auto ranging' code because the module does it all for you.
 
-It also automatically filters out infrared light, which often causes problems with LUX measurements because the humam eye is not sensitive to infrared.
+It also automatically filters out infrared light, which often causes problems with LUX measurements because the human eye is not sensitive to infrared.
 
 The sensor seems to be very accurate when compared to my LUX Meter. It measures very low LUX levels, down to 0.001 LUX, and has a response time of 5..10 seconds. The readings are very stable, with good smoothing.
 
@@ -16,13 +16,13 @@ The sensor is an LTR-303ALS-01 from Liteon, which rejects 50/60Hz flicker and ha
 
 ## EN Pin
 
-The 'Enable' pin (EN) is described in the data sheet, "EN sensor chip select enable terminal, H high active, L close sensor".
+The 'Enable' pin (EN) is described in the data sheet as, "EN sensor chip select enable terminal, H high active, L close sensor".
 
 The DFRobot library constructor requires the EN pin to be supplied, which is not so nice. In `begin()`, the DFRobot library toggles the EN pin low for 1 second, then sets it high. This looks like it's being used as a 'reset' pin.
 
-In fact, it should be used as a power on/power off pin, to save energy if the device is battery powered. 
+In fact, it should be used as a _power on/power off_ pin, to save energy if the device is battery powered. 
 
-The EN pin can also be used as a 'chip select' pin if you have multiple V30Bs connected to the same SDA/SCL pins. This is nice.
+The EN pin can also be used as a _chip select_ pin if you have multiple V30Bs connected to the same SDA/SCL pins. This is nice.
 
 This _mumanchu_ library does not handle the EN pin itself. It can be connected to VCC so it's always enabled, or connected to a digital output so it can be powered off and on, or used as chip select.
 
@@ -41,7 +41,7 @@ The _mumanchu_ library contains `writeEEPROM()` and `readEEPROM()` methods.
 
 ## I2C 
 
-The DFRobot data sheet says the module runs on I2C at up to 400KHz. I was unable to make it work reliably on Hardware I2C. At 100KHz it worked occasionally, but not well enough to be usable. The example sketch uses Software I2C, but can use Hardware I2C if you enable it, so you can try it yourself. Let me know if you get it working! Maybe I just have a bad module.
+The DFRobot data sheet says the module runs on I2C at up to 400KHz. I was unable to make it work reliably using Hardware I2C `Wire`. At 100KHz it worked occasionally, but not well enough to be usable. The example sketch uses Software I2C, but can use `Wire` if you enable it, so you can try it yourself. Let me know if you get it working! Maybe I just have a bad module.
 
 The official DFRobot library uses special Software I2C code, which works very well. This has the advantage that any GPIO pins can be used for SDA and SCL. I was also not able to make it work with other Software I2C libraries, so there is probably some kind of timing problem. 
 
@@ -93,10 +93,10 @@ By default, the example sketch uses Software I2C. However, if you want to try us
 It also contains code to test the 112 EEPROM registers, but this is patched out by default. To enable it, change `#if 0` to `#if 1`,
 
 ```cpp
-    // Set to 1 to enable the EEPROM tests
-    #if 0
-    ...
-    #endif
+// Set to 1 to enable the EEPROM tests
+#if 0
+...
+#endif
 ```
 
 
