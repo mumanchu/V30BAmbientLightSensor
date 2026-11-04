@@ -1,6 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Example sketch for DFRobot B_LUX_V30B Ambient Light Sensor
+// Example sketch for DFRobot B_LUX_V30B Ambient Light Sensor Library
 // SKU: SEN0390
+// Copyright (C) https://muman.ch + https://github.com/mumanchu, 2026.11.04
+// Copyright (c) 2010 DFRobot Co.Ltd, MIT License
+// If you re-use this software, please include the above copyright notices
+// 
 // For details see the github repository
 // https://github.com/V30BAmbientLightSensor
 
@@ -123,12 +127,18 @@ void setup()
 
 void loop() 
 {
+	char buf[32];
+
 	long lux;
-	if (als.readLux(&lux))
-		Serial.printf("%-8ld  LUX  %-6ld ", millis() / 1000, lux);
+	if (als.readLux(&lux)) {
+		sprintf(buf, "%-8ld  LUX  %-6ld ", millis() / 1000, lux);
+		Serial.print(buf);
+	}
 	float flux;
-	if (als.readLux(&flux))
-		Serial.printf("%.03f", flux);
+	if (als.readLux(&flux)) {
+		sprintf(buf, "%.03f", flux);
+		Serial.print(buf);
+	}
 	Serial.println();
 	Serial.flush();
 
