@@ -62,6 +62,8 @@ You must either use the official DFRbot library, or use this _mumanchu_ library 
 
 * It has two `readLUX()` methods. One returns an `unsigned long` integer (0..200'000), which is fine for most purposes. The other method returns a `float` value, which is only needed if you want to measure very low light levels, below 1.0 LUX. At higher LUX levels, the minimum step will be several LUX, not fractions of a LUX, so you don't need a floating point value.
 
+* All methods return `true` on success, `false` on failure (I2C communications or parameter error). 
+
 * Tidied up DFRobot's Software I2C code.
 
 
