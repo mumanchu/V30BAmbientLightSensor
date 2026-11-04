@@ -243,6 +243,55 @@ bool V30BAmbientLightSensor::i2cWriteRegs(uint reg, const byte* data, uint lengt
 
 #else
 
+// Read one or more registers
+// returns : true = success, false = failed
+bool V30BAmbientLightSensor::i2cReadRegs(byte reg, byte* data, uint length)
+{
+	// all zeros if it fails
+	memset(data, 0, length);
+
+	i2cSendStartStop(true);
+	bool ok = i2cSendByte(i2cAdds << 1);
+	if (ok)
+		ok = i2cSendByte(reg);
+	if (ok) {
+		// repeated start condition
+		i2cSendStartStop(true);
+		ok = i2cSendByte((i2cAdds << 1) | 1);
+		if (ok) {
+			delay(10);
+			for (uint i = 0; i < length; i++) {
+				data[i] = i2cRecvByte();
+				i2cSendAck(i != length - 1);
+			}
+		}
+	}
+	digitalWrite(sda, 0);
+	i2cSendStartStop(false);
+	return ok;
+}
+
+// Write one or more registers
+// returns : true = success, false = failed
+bool V30BAmbientLightSensor::i2cWriteRegs(uint reg, const byte* data, uint length)
+{
+	i2cSendStartStop(true);
+	bool ok = i2cSendByte(i2cAdds << 1);
+	if (ok)
+		ok = i2cSendByte(reg);
+	if (ok) {
+		for (int i = 0; i < length; ++i) {
+			ok = i2cSendByte(*data++);
+			if (!ok)
+				break;
+		}
+	}
+	digitalWrite(sda, 0);
+	i2cSendStartStop(false);
+	return ok;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Bit-banged Software I2C, this works well
 // modified from this DFRobot code
@@ -320,55 +369,6 @@ bool V30BAmbientLightSensor::i2cSendByte(byte data)
 		data <<= 1;
 	}
 	return i2cRecvAck();
-}
-
-
-// Read one or more registers
-// returns : true = success, false = failed
-bool V30BAmbientLightSensor::i2cReadRegs(byte reg, byte* data, uint length)
-{
-	// all zeros if it fails
-	memset(data, 0, length);
-
-	i2cSendStartStop(true);
-	bool ok = i2cSendByte(i2cAdds << 1);
-	if (ok)
-		ok = i2cSendByte(reg);
-	if (ok) {
-		// repeated start condition
-		i2cSendStartStop(true);
-		ok = i2cSendByte((i2cAdds << 1) | 1);
-		if (ok) {
-			delay(10);
-			for (uint i = 0; i < length; i++) {
-				data[i] = i2cRecvByte();
-				i2cSendAck(i != length - 1);
-			}
-		}
-	}
-	digitalWrite(sda, 0);
-	i2cSendStartStop(false);
-	return ok;
-}
-
-// Write one or more registers
-// returns : true = success, false = failed
-bool V30BAmbientLightSensor::i2cWriteRegs(uint reg, const byte* data, uint length)
-{
-	i2cSendStartStop(true);
-	bool ok = i2cSendByte(i2cAdds << 1);
-	if (ok)
-		ok = i2cSendByte(reg);
-	if (ok) {
-		for (int i = 0; i < length; ++i) {
-			ok = i2cSendByte(*data++);
-			if (!ok)
-				break;
-		}
-	}
-	digitalWrite(sda, 0);
-	i2cSendStartStop(false);
-	return ok;
 }
 
 #endif
