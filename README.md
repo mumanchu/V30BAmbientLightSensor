@@ -93,7 +93,7 @@ The example sketch displays the LUX value in `ulong` and `float` units on the Se
 To see the `float` value, you will need `sprintf()` to support floats, `"%f"`. You can sometimes select the "C Runtime Library" via the Arduino IDE "Tools" menu, e.g. "Newlib Nano + Float Printf". If not, you could use `floatToString()` which you can find here: \
 https://github.com/mumanchu/mumanchu/blob/main/utils/Float.cpp
 
-By default, the example sketch uses Software I2C. However, if you want to try using Hardware I2C, uncomment `#define V30B_USE_HARDWARE_I2C`. But I was unable to get this working - if you manage it, please let me know what you did.
+By default, the example sketch uses Software I2C. However, if you want to try using Hardware I2C `Wire`, uncomment `#define V30B_USE_HARDWARE_I2C`. But I was unable to get this working - if you manage it, please let me know what you did.
 
 It also contains code to test the 112 EEPROM registers, but this is patched out by default. To enable it, change `#if 0` to `#if 1`,
 
