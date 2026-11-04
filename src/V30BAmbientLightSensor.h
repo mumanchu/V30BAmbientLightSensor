@@ -337,7 +337,7 @@ bool V30BAmbientLightSensor::i2cRecvAck(void)
 	return ack;
 }
 
-// returns : true = ACK, false = NAK
+// returns the byte
 byte V30BAmbientLightSensor::i2cRecvByte()
 {
 	pinMode(sda, INPUT_PULLUP);
